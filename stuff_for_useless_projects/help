@@ -1,0 +1,15 @@
+Help command for pyshell
+    
+    ls		List directory contents
+    pwd		Print working directory (aka directory path)
+    cd		Change directory
+    cat		Print contents if file
+    exit	Exit the shell
+    clear	Clear the screen
+    touch	Make an empty file
+    rm		Remove file
+    rmdir	Remove directory
+    mkdir	Make a directory
+    whoami	Prints currently logged in user's username
+    bash	Runs bash
+    help	Show this

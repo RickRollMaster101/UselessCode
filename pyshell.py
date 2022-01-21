@@ -6,17 +6,29 @@ def main():
         os.system('whoami|lolcat')
         prompt = input("$ ")
         if prompt == 'ls':
-            print(os.listdir('.'))
+            try: 
+                print(os.listdir('.'))
+            except:
+                print('ls: cannot access')
         elif prompt == 'pwd':
-            print(os.getcwd())
+            try:
+                print(os.getcwd())
+            except:
+                print('pwd: cannot access')
         elif prompt == 'cd':
-            path = input('path: ')
-            os.chdir(path)
-            print(f'changed directory to {path}')
+            try:
+                path = input('path: ')
+                os.chdir(path)
+                print(f'changed directory to {path}')
+            except:
+                print('cd: folder not found')
         elif prompt == 'cat':
-            filename = input('filename: ')
-            with open(filename, 'r') as f:
-                print(f.read())
+            try:
+                filename = input('filename: ')
+                with open(filename, 'r') as f:
+                    print(f.read())
+            except:
+                print('cat: file not found')
         elif prompt == 'exit':
             print('exiting...')
             exit()
@@ -25,24 +37,42 @@ def main():
         elif prompt == 'whoami':
             print(os.getlogin())
         elif prompt == 'touch':
-            filename = input('filename: ')
-            open(filename, 'a').close()
+            try:
+                filename = input('filename: ')
+                open(filename, 'a').close()
+            except:
+                print('touch: cannot create file')
         elif prompt == 'rm':
-            filename = input('filename: ')
-            os.remove(filename)
+            try:
+                filename = input('filename: ')
+                os.remove(filename)
+            except:
+                print('rm: cannot remove file')
         elif prompt == 'mkdir':
-            dirname = input('dirname: ')
-            os.mkdir(dirname)
+            try:
+                dirname = input('dirname: ')
+                os.mkdir(dirname)
+            except:
+                print('mkdir: cannot create folder')
         elif prompt == 'rmdir':
-            dirname = input('dirname: ')
-            os.rmdir(dirname)
+            try:
+                dirname = input('dirname: ')
+                os.rmdir(dirname)
+            except:
+                print('rmdir: cannot remove folder')
         elif prompt == 'bash':
             os.system('/bin/bash')
         elif prompt == 'help':
-            with open('./stuff_for_useless_projects/help', 'r') as f:
-                print(f.read())
+            try:
+                with open('./stuff_for_useless_projects/help', 'r') as f:
+                    print(f.read())
+            except:
+                print('help: help file not found')
         else:
             print(f'pyshell: command not found: {prompt}')
 
 if '__main__' == __name__:
     main()
+
+#error handling
+#try:

@@ -3,7 +3,7 @@ Help command for pyshell
     ls		List directory contents
     pwd		Print working directory (aka directory path)
     cd		Change directory
-    cat		Print contents if file
+    cat		Print contents of file
     exit	Exit the shell
     clear	Clear the screen
     touch	Make an empty file

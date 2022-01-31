@@ -57,4 +57,3 @@ pyautogui.click()
 #^C  363 Y:   63 RGB: ( 58,  46,  87)
 # ^C   23 Y:   56 RGB: (225,  78,  75)
 
-pyautogui.position()

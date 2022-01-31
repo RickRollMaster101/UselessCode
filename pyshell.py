@@ -68,6 +68,14 @@ def main():
                     print(f.read())
             except:
                 print('help: help file not found')
+        elif prompt == 'time':
+            print(os.popen('date').read())
+        elif prompt == 'python':
+            try:
+                pycommand = input('command: ')
+                exec(pycommand)
+            except:
+                print('python: invalid command')
         else:
             print(f'pyshell: command not found: {prompt}')
 

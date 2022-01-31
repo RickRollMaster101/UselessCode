@@ -12,4 +12,6 @@ Help command for pyshell
     mkdir	Make a directory
     whoami	Prints currently logged in user's username
     bash	Runs bash
+    time        Prints the current time
+    python      Run a python command
     help	Show this

@@ -64,8 +64,23 @@ def main():
             os.system('/bin/bash')
         elif prompt == 'help':
             try:
-                with open('./stuff_for_useless_projects/help', 'r') as f:
-                    print(f.read())
+                print('''Help command for pyshell
+
+    ls		List directory contents
+    pwd		Print working directory (aka directory path)
+    cd		Change directory
+    cat		Print contents of file
+    exit	Exit the shell
+    clear	Clear the screen
+    touch	Make an empty file
+    rm		Remove file
+    rmdir	Remove directory
+    mkdir	Make a directory
+    whoami	Prints currently logged in user's username
+    bash	Runs bash
+    time        Prints the current time
+    python      Run a python command
+    help	Show this''')
             except:
                 print('help: help file not found')
         elif prompt == 'time':

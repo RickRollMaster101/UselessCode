@@ -76,6 +76,8 @@ def main():
                 exec(pycommand)
             except:
                 print('python: invalid command')
+        elif prompt == '':
+            pass
         else:
             print(f'pyshell: command not found: {prompt}')
 

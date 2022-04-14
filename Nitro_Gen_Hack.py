@@ -61,7 +61,7 @@ class Window(QMainWindow):
     def lol(self):
             msg = QtWidgets.QMessageBox()
             msg.setIcon(QtWidgets.QMessageBox.Warning)
-            msg.setText('Are you sure you want to do this? This is not a joke and can get you banned from discord.')
+            msg.setText('This is not a joke and can get you banned from discord. Are you sure you want to do this?')
             msg.setWindowTitle('Confirmation')
             msg.setStandardButtons(QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
             msg.setDefaultButton(QtWidgets.QMessageBox.No)

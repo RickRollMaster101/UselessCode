@@ -8,15 +8,17 @@ import requests
 
 if os.path.exists('./nitro.png'):
     pass
-    # requests.get('placeholder')
 else:
-    pass
+    nitro = requests.get('https://github.com/RickRollMaster101/UselessCode/blob/main/stuff_for_useless_projects/nitro.png?raw=true')
+
+    open('./nitro.png', 'wb').write(nitro.content)
 
 if os.path.exists('./nitrologo.png'):
     pass
-    # requests.get('placeholder')
 else:
-    pass
+    nitrologo = requests.get('https://github.com/RickRollMaster101/UselessCode/blob/main/stuff_for_useless_projects/nitrologo.png?raw=true')
+
+    open('./nitrologo.png', 'wb').write(nitrologo.content)
 
 class Window(QMainWindow):
     def __init__(self):

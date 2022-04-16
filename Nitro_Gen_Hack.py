@@ -76,6 +76,15 @@ class Window(QMainWindow):
                 time.sleep(5)
                 print(Fore.GREEN + pyfiglet.figlet_format('Done!'))
                 print(f'{Fore.RED}You will need to reopen discord for you to receive the nitro')
+                done = QtWidgets.QMessageBox()
+                done.setIcon(QtWidgets.QMessageBox.Information)
+                done.setText('You will need to reopen discord for you to receive the nitro')
+                done.setWindowTitle('Done!')
+                done.setStandardButtons(QtWidgets.QMessageBox.Ok)
+                done.setDefaultButton(QtWidgets.QMessageBox.Ok)
+                retval = done.exec_()
+                if retval == QtWidgets.QMessageBox.Ok:
+                    pass
                 time.sleep(2)
                 webbrowser.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
 
@@ -99,6 +108,15 @@ class Window(QMainWindow):
                 time.sleep(5)
                 print(Fore.GREEN + pyfiglet.figlet_format('Done!'))
                 print(f'{Fore.RED}You will need to reopen discord for you to receive the nitro')
+                done = QtWidgets.QMessageBox()
+                done.setIcon(QtWidgets.QMessageBox.Information)
+                done.setText('You will need to reopen discord for you to receive the nitro')
+                done.setWindowTitle('Done!')
+                done.setStandardButtons(QtWidgets.QMessageBox.Ok)
+                done.setDefaultButton(QtWidgets.QMessageBox.Ok)
+                retval = done.exec_()
+                if retval == QtWidgets.QMessageBox.Ok:
+                    pass
                 time.sleep(2)
                 webbrowser.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
 

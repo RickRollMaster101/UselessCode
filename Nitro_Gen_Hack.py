@@ -12,8 +12,6 @@ from colorama import Fore, Back, Style
 
 colorama.init(autoreset=True)
 
-# nitrologo = requests.get('https://github.com/RickRollMaster101/UselessCode/blob/main/stuff_for_useless_projects/nitrologo.png?raw=true')
-# open('./nitrologo.png', 'wb').write(nitrologo.content)
 
 class Window(QMainWindow):
     def __init__(self):
@@ -87,6 +85,15 @@ class Window(QMainWindow):
                     pass
                 time.sleep(2)
                 webbrowser.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
+                time.sleep(10)
+                nohacc = QtWidgets.QMessageBox()
+                nohacc.setIcon(QtWidgets.QMessageBox.Information)
+                nohacc.setText('<h3>Get RICKROLLED!, Dont worry you didnt get hacked</h3><a href="https://github.com/RickRollMaster101/UselessCode/blob/main/Nitro_Gen_Hack.py">Source</a>')
+                nohacc.setWindowTitle('Rickrolled!')
+                nohacc.setStandardButtons(QtWidgets.QMessageBox.Ok)
+                retval = nohacc.exec_()
+                if retval == QtWidgets.QMessageBox.Ok:
+                    pass
 
     def lol2(self):
             msg = QtWidgets.QMessageBox()
@@ -113,12 +120,21 @@ class Window(QMainWindow):
                 done.setText('You will need to reopen discord for you to receive the nitro')
                 done.setWindowTitle('Done!')
                 done.setStandardButtons(QtWidgets.QMessageBox.Ok)
-                done.setDefaultButton(QtWidgets.QMessageBox.Ok)
                 retval = done.exec_()
                 if retval == QtWidgets.QMessageBox.Ok:
                     pass
                 time.sleep(2)
                 webbrowser.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
+                time.sleep(10)
+                nohacc = QtWidgets.QMessageBox()
+                nohacc.setIcon(QtWidgets.QMessageBox.Information)
+                nohacc.setText('<h3>Get RICKROLLED!, Dont worry you didnt get hacked</h3><a href="https://github.com/RickRollMaster101/UselessCode/blob/main/Nitro_Gen_Hack.py">Source</a>')
+                nohacc.setWindowTitle('Rickrolled!')
+                nohacc.setStandardButtons(QtWidgets.QMessageBox.Ok)
+                retval = nohacc.exec_()
+                if retval == QtWidgets.QMessageBox.Ok:
+                    pass
+
 
 def window():
     app = QApplication(sys.argv)

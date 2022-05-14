@@ -1,9 +1,61 @@
+#!/usr/bin/python3
+
 import os
+import json
+import colorama
+from colorama import Fore, Back, Style
+from sys import platform
+
+colorama.init(autoreset=True)
+
+config = {
+   'bashmode': "off",
+   'lolcat': "on"
+}
+
+login = os.getlogin()
+if login == "root":
+    login = os.getenv("USER")
+
+linuxconfpath = f'/home/{login}/.config/pyshell'
+macconfpath = f'/Users/{login}/.config/pyshell'
+
+if platform == 'linux':
+    if os.path.exists(linuxconfpath):
+        pass
+    else:
+        os.mkdir(linuxconfpath)
+    if os.path.exists(f'{linuxconfpath}/pyshell-conf.json'):
+        pass
+    else:
+        with open(f'{linuxconfpath}/pyshell-conf.json', 'a') as f:
+            f.write(json.dumps(config))
+elif platform == 'darwin':
+    if os.path.exists(macconfpath):
+        pass
+    else:
+        os.mkdir(macconfpath)
+    if os.path.exists(f'{macconfpath}/pyshell-conf.json'):
+        pass
+    else:
+        with open(f'{macconfpath}/pyshell-conf.json', 'a') as f:
+            f.write(json.dumps(config))
+
+
 
 def main():
+    if platform == 'linux':
+        with open(f'{linuxconfpath}/pyshell-conf.json', 'r') as f:
+            config = json.loads(f.read())
+    if platform == 'darwin':
+        with open(f'{macconfpath}/pyshell-conf.json', 'r') as f:
+            config = json.loads(f.read())
     while True:
         print(' ')
-        os.system('whoami|lolcat')
+        if config['lolcat'] == 'on':
+            os.system('whoami|lolcat')
+        elif config['lolcat'] == 'off':
+            print(login)
         prompt = input("$ ")
         if prompt == 'ls':
             try: 
@@ -35,7 +87,7 @@ def main():
         elif prompt == 'clear':
             os.system('clear')
         elif prompt == 'whoami':
-            print(os.getlogin())
+            print(login)
         elif prompt == 'touch':
             try:
                 filename = input('filename: ')
@@ -80,6 +132,9 @@ def main():
     bash	Runs bash
     time        Prints the current time
     python      Run a python command
+    editconfig  A command for editing the config file
+    rmconfig    Deletes the config file
+    neofetch    A command-line system information tool by dylanaraps
     help	Show this''')
             except:
                 print('help: help file not found')
@@ -91,10 +146,25 @@ def main():
                 exec(pycommand)
             except:
                 print('python: invalid command')
+        elif prompt == 'editconfig':
+            if platform == 'linux':
+                os.system(f'nano {linuxconfpath}/pyshell-conf.json')
+            if platform == 'darwin':
+                os.system(f'nano {macconfpath}/pyshell-conf.json')
+        elif prompt == 'rmconfig':
+            if platform == 'linux':
+                os.remove(f'{linuxconfpath}/pyshell-conf.json')
+            if platform == 'darwin':
+                os.remove(f'{macconfpath}/pyshell-conf.json')
+        elif prompt == 'neofetch':
+            os.system('neofetch --shell_version off | sed "s/zsh/pyshell/g ; s/bash/pyshell/g ; s/fish/pyshell/g"')
         elif prompt == '':
             pass
         else:
-            print(f'pyshell: command not found: {prompt}')
+            if config['bashmode'] == 'on':
+                os.system(prompt)
+            elif config['bashmode'] == 'off':
+                print(f'pyshell: command not found: {prompt} \n{Fore.YELLOW}If you want to run a bash command if the command doesnt exist in pyshell, set bashmode to "{Fore.GREEN}on{Fore.YELLOW}" in ~/.config/pyshell/pyshell-conf.json or by using the "editconfig" command')
 
 if '__main__' == __name__:
     main()

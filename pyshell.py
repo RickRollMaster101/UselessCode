@@ -10,7 +10,8 @@ colorama.init(autoreset=True)
 
 config = {
    'bashmode': "off",
-   'lolcat': "on"
+   'lolcat': "on",
+   'pwd': "off",
 }
 
 login = os.getlogin()
@@ -42,22 +43,33 @@ elif platform == 'darwin':
         print(f'{Fore.YELLOW}[+] {Fore.RESET}No config file found, generating config file...')
         with open(f'{macconfpath}/pyshell-conf.json', 'a') as f:
             f.write(json.dumps(config))
-
-
+elif platform == 'win32':
+    print(f'{Fore.RED}[x] {Fore.RESET}Windows is not supported')
+    exit()
 
 def main():
-    if platform == 'linux':
-        with open(f'{linuxconfpath}/pyshell-conf.json', 'r') as f:
-            config = json.loads(f.read())
-    if platform == 'darwin':
-        with open(f'{macconfpath}/pyshell-conf.json', 'r') as f:
-            config = json.loads(f.read())
+    try:
+        if platform == 'linux':
+            with open(f'{linuxconfpath}/pyshell-conf.json', 'r') as f:
+                config = json.loads(f.read())
+        if platform == 'darwin':
+            with open(f'{macconfpath}/pyshell-conf.json', 'r') as f:
+                config = json.loads(f.read())
+    except:
+        brokenconfig()
+    brokenconfigcheck()
     while True:
         print(' ')
         if config['lolcat'] == 'on':
-            os.system('whoami|lolcat')
+            if config['pwd'] == 'on':
+                os.system('echo "`whoami` `pwd`"|lolcat')
+            if config['pwd'] == 'off':
+                os.system('whoami|lolcat')
         elif config['lolcat'] == 'off':
-            print(login)
+            if config['pwd'] == 'on':
+                print(f'{login} {os.getcwd()}')
+            if config['pwd'] == 'off':
+                print(login)
         prompt = input("$ ")
         if prompt == 'ls':
             try: 
@@ -143,21 +155,14 @@ def main():
         elif prompt == 'time':
             print(os.popen('date').read())
         elif prompt == 'python':
-            try:
-                pycommand = input('command: ')
-                exec(pycommand)
-            except:
-                print(f'{Fore.RED}[x] {Fore.RESET}python: invalid command')
+            pythonmode()
         elif prompt == 'editconfig':
             if platform == 'linux':
                 os.system(f'nano {linuxconfpath}/pyshell-conf.json')
             if platform == 'darwin':
                 os.system(f'nano {macconfpath}/pyshell-conf.json')
         elif prompt == 'rmconfig':
-            if platform == 'linux':
-                os.remove(f'{linuxconfpath}/pyshell-conf.json')
-            if platform == 'darwin':
-                os.remove(f'{macconfpath}/pyshell-conf.json')
+            rmconfig()
         elif prompt == 'neofetch':
             os.system('neofetch --shell_version off | sed "s/zsh/pyshell/g ; s/bash/pyshell/g ; s/fish/pyshell/g"')
         elif prompt == '':
@@ -167,6 +172,73 @@ def main():
                 os.system(prompt)
             elif config['bashmode'] == 'off':
                 print(f'{Fore.RED}[x] {Fore.RESET}pyshell: command not found: {prompt} \n{Fore.YELLOW}If you want to run a bash command if the command doesnt exist in pyshell, set bashmode to "{Fore.GREEN}on{Fore.YELLOW}" in ~/.config/pyshell/pyshell-conf.json or by using the "editconfig" command')
+
+def pythonmode():
+    while True:
+        pycommand = input('>>> ')
+        if pycommand == 'exit':
+            print('returning to pyshell')
+            main()
+        else:
+            try:
+                exec(pycommand)
+            except Exception as exception:
+                print(f'{Fore.RED}[x] {Fore.RESET}python: {exception}')
+
+def rmconfig():
+    if platform == 'linux':
+        os.remove(f'{linuxconfpath}/pyshell-conf.json')
+    if platform == 'darwin':
+        os.remove(f'{macconfpath}/pyshell-conf.json')
+
+def brokenconfig():
+    print(f'{Fore.RED}[x] {Fore.RESET}Broken config file found, regenerating config file...')
+    rmconfig()
+    if platform == 'linux':
+        with open(f'{linuxconfpath}/pyshell-conf.json', 'a') as f:
+            f.write(json.dumps(config))
+    elif platform == 'darwin':
+        with open(f'{macconfpath}/pyshell-conf.json', 'a') as f:
+            f.write(json.dumps(config))
+
+def brokenconfigcheck():
+    if platform == 'linux':
+        with open(f'{linuxconfpath}/pyshell-conf.json', 'r') as f:
+            config = json.loads(f.read())
+    if platform == 'darwin':
+        with open(f'{macconfpath}/pyshell-conf.json', 'r') as f:
+            config = json.loads(f.read())
+
+    if 'bashmode' not in config:
+        brokenconfig()
+        exit()
+    elif 'pwd' not in config:
+        brokenconfig()
+        exit()
+    elif 'lolcat' not in config:
+        brokenconfig()
+        exit()
+    
+    if config['bashmode'] == 'on':
+        pass
+    elif config['bashmode'] == 'off':
+        pass
+    else:
+        brokenconfig()
+    
+    if config['pwd'] == 'on':
+        pass
+    elif config['pwd'] == 'off':
+        pass
+    else:
+        brokenconfig()
+
+    if config['lolcat'] == 'on':
+        pass
+    elif config['lolcat'] == 'off':
+        pass
+    else:
+        brokenconfig()
 
 if '__main__' == __name__:
     main()
